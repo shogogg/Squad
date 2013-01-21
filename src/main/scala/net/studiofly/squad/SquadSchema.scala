@@ -25,7 +25,7 @@ trait SquadSchema extends Schema {
    * Lifecycle Callbacks
    */
   override def callbacks: Seq[LifecycleEvent] = {
-    setupDefaultCallbacks()
+    setupCallbacks()
     callbackArrayBuffer.toSeq
   }
   private val callbackArrayBuffer = new ArrayBuffer[LifecycleEvent]
@@ -33,14 +33,14 @@ trait SquadSchema extends Schema {
   /**
    * Add lifecycle callback
    */
-  protected def addCallback(cb: LifecycleEvent) {
+  protected final def addCallback(cb: LifecycleEvent) {
     callbackArrayBuffer.append(cb)
   }
 
   /**
-   * Setup default callbacks
+   * Setup callbacks
    */
-  private def setupDefaultCallbacks() {
+  protected def setupCallbacks() {
     addCallback(beforeInsert[TimestampedEntity].call { (a) =>
       val now = Util.currentTimestamp
       a.ctime = now
