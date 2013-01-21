@@ -5,7 +5,6 @@ import net.studiofly.squad._
 import net.studiofly.squad.pattern.LongKeyedEntity
 import org.squeryl.KeyedEntity
 import org.squeryl.dsl.CompositeKey2
-import MusicDb._
 
 object MusicDb extends SquadSchema {
   val band = table[Band]
@@ -23,15 +22,18 @@ object MusicDb extends SquadSchema {
 }
 
 case class Band(var name: String) extends LongKeyedEntity {
+  import MusicDb._
   lazy val members = bandMember.left(this)
   lazy val songs = bandToSong.left(this)
 }
 
 case class Person(var firstName: String, var lastName: String, var age: Int) extends LongKeyedEntity {
+  import MusicDb._
   lazy val bands = bandMember.right(this)
 }
 
 case class Song(var title: String) extends LongKeyedEntity {
+  import MusicDb._
   val bandId: Long = 0
   lazy val band = bandToSong.right(this)
 }
