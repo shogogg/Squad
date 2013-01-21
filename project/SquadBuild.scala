@@ -4,7 +4,7 @@ import sbt.Keys._
 object BuildSettings {
   val buildName = "Squad"
   val buildOrganization = "net.studiofly"
-  val buildVersion = "0.1.0"
+  val buildVersion = "0.1.1"
   val buildScalaVersion = "2.10.0"
   val buildJavaOptions = Seq(
     "-Xdebug",
